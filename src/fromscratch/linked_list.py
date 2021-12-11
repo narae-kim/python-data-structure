@@ -121,6 +121,23 @@ class LinkedList():
                     break
                 nth_node = nth_node.prev_node
 
+    def __iter__(self):
+        """
+        Make the LinkedList iterable.
+        """
+        self.__n = 0
+        self.__iter_next_node = self.__first_node
+        return self
+
+    def __next__(self):
+        if self.__n < self.size:
+            iter_next_node = self.__iter_next_node
+            self.__iter_next_node = self.__iter_next_node.next_node
+            self.__n += 1
+            return iter_next_node
+        else:
+            raise StopIteration
+
     def __str__(self):
         all_data_string = ""
         node = self.__first_node
@@ -225,3 +242,13 @@ if __name__ == '__main__':
     print(linked_list.get(0))
     print(linked_list.get(1))
     print(linked_list.get(2))
+    print("\n --- Iterator ---")
+    ll_iter = iter(linked_list)
+    for node in ll_iter:
+        print(node)
+        print("data: {0}\t\tprev_node: {1}\t\tnext_node: {2}".format(node.data, node.prev_node, node.next_node))
+    ll_iter2 = iter(linked_list)
+    print(ll_iter2.__next__())
+    print(next(ll_iter2))
+    print(ll_iter2.__next__())
+    print(next(ll_iter2))
