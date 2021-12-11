@@ -85,12 +85,18 @@ class LinkedList():
         """
         Remove data at the index-th node in the linked list.
         This method searches from the first node if the index is closer to the first node. Otherwise, it searches from the last node.
-        If the input is non-int type or negative value, ValueError will be raised.
-        :param index: non-negative int
+        If the input is non-int type or negative value or above the size of the linked list, ValueError will be raised.
+        :param index: non-negative int which is smaller than the size of the linked list
         """
-        if type(index) is not int or index < 0:
-            raise ValueError("The index should be non-negative integer.")
-        if (self.size - 2 * index) >= 0:  # (size -1 - index) + (0 - index) > 0 then closer from the first node
+        if type(index) is not int or index >= self.size or index < 0:
+            raise ValueError(
+                "The index should be non-negative integer and smaller than the size of the linked list ({}).".format(
+                    self.size))
+        if self.size <= 1:
+            self.__first_node = None
+            self.__last_node = None
+            self.__size = self.size - 1
+        elif (self.size - 2 * index) > 0:  # (size -1 - index) + (0 - index) > 0 then closer from the first node
             nth_node = self.__first_node
             for i in range(index + 1):
                 if i == index:
