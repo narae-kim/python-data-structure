@@ -81,7 +81,22 @@ class LinkedList():
                     return nth_node.data
                 nth_node = nth_node.prev_node
 
-    def remove(self, index):
+    def remove(self):
+        """
+        Remove data from the last node in the linked list.
+        Raise ValueError when there is no node to remove.
+        """
+        if self.size <= 0:
+            raise ValueError("The linked list is empty already.")
+        if self.size > 1:
+            self.__last_node = self.__last_node.prev_node
+            self.__last_node.next_node = None
+        elif self.size == 1:
+            self.__first_node = None
+            self.__last_node = None
+        self.__size = self.size - 1
+
+    def remove_by_index(self, index):
         """
         Remove data at the index-th node in the linked list.
         This method searches from the first node if the index is closer to the first node. Otherwise, it searches from the last node.
@@ -227,17 +242,17 @@ if __name__ == '__main__':
     print(linked_list.get(3))
     print(linked_list.get(8))
     # print(linked_list.get(3.0))  # Error test
-    linked_list.remove(5)
+    linked_list.remove_by_index(5)
     print(linked_list)
-    linked_list.remove(7)
+    linked_list.remove_by_index(7)
     print(linked_list)
-    linked_list.remove(5)
+    linked_list.remove_by_index(5)
     print(linked_list)
-    linked_list.remove(2)
+    linked_list.remove_by_index(2)
     print(linked_list)
-    linked_list.remove(0)
+    linked_list.remove_by_index(0)
     print(linked_list)
-    linked_list.remove(1)
+    linked_list.remove_by_index(1)
     print(linked_list)
     print(linked_list.get(0))
     print(linked_list.get(1))
@@ -251,4 +266,12 @@ if __name__ == '__main__':
     print(ll_iter2.__next__())
     print(next(ll_iter2))
     print(ll_iter2.__next__())
-    print(next(ll_iter2))
+    #print(next(ll_iter2))  # error test
+    print("\n---- Remove ----")
+    linked_list.remove()
+    print(linked_list)
+    linked_list.remove()
+    print(linked_list)
+    linked_list.remove()
+    print(linked_list)
+    linked_list.remove()  # error test
